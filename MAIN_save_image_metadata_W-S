@@ -1,0 +1,36 @@
+# Captures metadata for images in container fields by copying the file names from their
+# container fields to a new field. This script can be used on its own for a single
+# record, or in tandem with its looping script to capture metadata in bulk.
+
+
+ Set Variable [ $image_count; Value:6]
+ Set Variable [ $i; Value:1 ]
+ Loop [ Flush: Always]
+   Exit Loop If [ $i > $image_count ]
+   If [ $i = 1 ]
+     If [ not IsEmpty ( specimen_images::Specimen_Label_Image_1 ) ]
+       Set Field [ specimen_images::Specimen_Label_Metadata_1 ; GetAsText (specimen_images::Specimen_Label_Image_1)]
+     End If
+   Else If [ $i = 2 ]
+     If [ not IsEmpty ( specimen_images::Specimen_Label_Image_2 ) ]
+       Set Field [ specimen_images::Specimen_Label_Metadata_2; GetAsText (specimen_images::Specimen_Label_Image_2)]
+     End If
+   Else If [ $i = 3 ]
+     If [ not IsEmpty ( specimen_images::Specimen_Label_Image_3 ) ]
+       Set Field [ specimen_images::Specimen_Label_Metadata_3; GetAsText (specimen_images::Specimen_Label_Image_3)]
+     End If
+   Else If [ $i = 4 ]
+     If [ not IsEmpty ( specimen_images::Specimen_Label_Image_4 ) ]
+       Set Field [ specimen_images::Specimen_Label_Metadata_4; GetAsText (specimen_images::Specimen_Label_Image_4)]
+     End If
+   Else If [ $i = 5 ]
+     If [ not IsEmpty ( specimen_images::Specimen_Label_Image_5 ) ]
+       Set Field [ specimen_images::Specimen_Label_Metadata_5; GetAsText ( specimen_images::Specimen_Label_Image_5 )]
+     End If
+   Else If [ $i = 6 ]
+     If [ not IsEmpty ( specimen_images::Specimen_Label_Image_6 ) ]
+       Set Field [ specimen_images::Specimen_Label_Metadata_6; GetAsText ( specimen_images::Specimen_Label_Image_6 )]
+     End If
+   End If
+   Set Variable [ $i; Value:$i + 1]
+ End Loop
