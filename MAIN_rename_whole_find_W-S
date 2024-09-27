@@ -1,0 +1,11 @@
+# Loops through a Find selection / query to rename files using the 
+# "MAIN_renamed_images_002_W-S" script.
+
+Go to Record/Request/Page
+     [ First ]
+ Loop [ Flush: Always]
+     Perform Script [ “MAIN_renamed_images_002_W-S” ]
+     Exit Loop If [ Get ( FoundCount ) = Get ( RecordNumber ) ]
+     Go to Record/Request/Page
+       [ Next; Exit after last ]
+ End Loop
