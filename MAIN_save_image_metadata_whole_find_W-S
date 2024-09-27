@@ -1,0 +1,14 @@
+# Claris FileMaker Script that saves image metadata from container fields
+# by looping over a Find selection/query. 
+# Used for capturing metadata in bulk; runs nearly instantaneously for
+# datasets that contain hundreds of records.
+# Must be run with the accompanying script, "MAIN_save_image_metadata_W-S".
+
+Go to Record/Request/Page
+  [ First ]
+Loop [ Flush: Always]
+  Perform Script [ “MAIN_save_image_metadata_W-S” ]
+  Exit Loop If [ Get ( FoundCount ) = Get ( RecordNumber ) ]
+  Go to Record/Request/Page
+ [ Next; Exit after last ]
+End Loop
