@@ -1,0 +1,58 @@
+# Renames image files in 6 container fields based on Darwin Core naming conventions.
+# Can be used for a single record or in tandem with its accompanying looping script,
+# which allows for bulk renaming over a Find selection / query.
+
+Set Variable [ $image_count; Value:6]
+Set Variable [ $i; Value:1 ]
+Loop [ Flush: Always]
+  Exit Loop If [ $i > $image_count ]
+  Set Variable [ $image_field; Value:"Specimen_Label_Image" & $i]
+  Set Variable [ $image_name_field; Value:"specimen_image_name_" & $i]
+  Set Variable [ $new_file_name; Value:specimen_images::Institution_Code & "-" & specimen_images::Collection_Code & "-" & specimen_images::Catalog_No & "_Image_" & $i & ".jpg" ]
+  If [ $i = 1 ]
+    If [ not IsEmpty ( specimen_images::Specimen_Label_Image_1 ) ]
+      Set Field [ specimen_images::Specimen_Label_Image_1; Base64Decode ( Base64Encode ( specimen_images::Specimen_Label_Image_1 ); $new_file_name) ]
+      Set Field [ specimen_images::specimen_image_name_1; $new_file_name ]
+    End If
+ Else If [ $i = 2 ]
+    If [ not IsEmpty ( specimen_images::Specimen_Label_Image_2 ) ]
+      Set Field [ specimen_images::Specimen_Label_Image_2; Base64Decode ( Base64Encode ( specimen_images::Specimen_Label_Image_2 ); $new_file_name) ]
+      Set Field [ specimen_images::specimen_image_name_2; $new_file_name ]
+    End If
+ Else If [ $i = 3 ]
+    If [ not IsEmpty ( specimen_images::Specimen_Label_Image_3 ) ]
+      Set Field [ specimen_images::Specimen_Label_Image_3; Base64Decode ( Base64Encode ( specimen_images::Specimen_Label_Image_3 ); $new_file_name) ]
+      Set Field [ specimen_images::specimen_image_name_3; $new_file_name ]
+    End If
+ Else If [ $i = 4 ]
+    If [ not IsEmpty ( specimen_images::Specimen_Label_Image_4 ) ]
+      Set Field [ specimen_images::Specimen_Label_Image_4; Base64Decode ( Base64Encode ( specimen_images::Specimen_Label_Image_4 ); $new_file_name) ]
+      Set Field [ specimen_images::specimen_image_name_4; $new_file_name ]
+    End If
+ Else If [ $i = 5 ]
+    If [ not IsEmpty ( specimen_images::Specimen_Label_Image_5 ) ]
+      Set Field [ specimen_images::Specimen_Label_Image_5; Base64Decode ( Base64Encode ( specimen_images::Specimen_Label_Image_5 ); $new_file_name) ]
+      Set Field [ specimen_images::specimen_image_name_5; $new_file_name ]
+    End If
+ Else If [ $i = 6 ]
+    If [ not IsEmpty ( specimen_images::Specimen_Label_Image_6 ) ]
+      Set Field [ specimen_images::Specimen_Label_Image_6; Base64Decode ( Base64Encode ( specimen_images::Specimen_Label_Image_6 ); $new_file_name) ]
+      Set Field [ specimen_images::specimen_image_name_6; $new_file_name ]
+    End If
+  End If
+ 
+  If [ not IsEmpty ( specimen_images::Specimen_Label_Image_1) & $i = 1 ]
+    Set Variable [ $$SpecImageName1; Value:$new_file_name]
+  Else If [ not IsEmpty ( specimen_images::specimen_image_name_2 & $i = 2 ) ]
+    Set Variable [ $$SpecImageName2; Value:$new_file_name]
+  Else If [ not IsEmpty ( specimen_images::specimen_image_name_3 & $i = 3 ) ]
+    Set Variable [ $$SpecImageName3; Value:$new_file_name]
+  Else If [ not IsEmpty ( specimen_images::specimen_image_name_4 & $i = 4 ) ]
+    Set Variable [ $$SpecImageName4; Value:$new_file_name]
+  Else If [ not IsEmpty ( specimen_images::specimen_image_name_5 & $i = 5 ) ]
+    Set Variable [ $$SpecImageName5; Value:$new_file_name]
+  Else If [ not IsEmpty ( specimen_images::specimen_image_name_6 & $i = 6 ) ]
+    Set Variable [ $$SpecImageName6; Value:$new_file_name]
+  End If
+  Set Variable [ $i; Value:$i + 1]
+End Loop
