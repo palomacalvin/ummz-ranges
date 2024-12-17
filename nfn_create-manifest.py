@@ -12,7 +12,7 @@ from googleapiclient.discovery import build
 ###### VARIABLES
 
 # Set Google Drive folder using the string after "/folders/"
-FOLDER_ID = "10l9Jk9uLJ6_DFTMJOjN0mgJkY1in8Z8c"
+FOLDER_ID = "1N90TR89k4QZWCUAJwQy4WDHI0GsSJ1_T"
 
 # If modifying this scope, delete the file token.pickle.
 SCOPES = ["https://www.googleapis.com/auth/drive.readonly"]
@@ -104,8 +104,8 @@ def create_csv_from_sort(filename, data):
         # Find the maximum number of filenames in any group to define the number of columns
         max_files_per_group = max(len(files) for files in data.values())
 
-        # Write the header: "Number", "Image 1", "Image 2", ..., "Image N"
-        header = ["Number"] + [f'Image {i+1}' for i in range(max_files_per_group)]
+        # Write the header: "ID", "Image_1", "Image_2", ..., "Image_N"
+        header = ["ID"] + [f'Image_{i+1}' for i in range(max_files_per_group)]
         writer.writerow(header)
 
         # Write the data: for each group, write the group number followed by filenames
